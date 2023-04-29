@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from django.contrib import admin
-from .models import News
+from .models import News,League,Plays,Teams
 
 class imageAdmin(admin.ModelAdmin):
 
@@ -9,4 +9,13 @@ class imageAdmin(admin.ModelAdmin):
 
 admin.site.register(News, imageAdmin)
 
+admin.site.register(League)
+
+admin.site.register(Plays)
+
+
+admin.site.register(Teams)
+
+
 # Register your models here.
+
