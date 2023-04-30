@@ -8,16 +8,7 @@ from rest_framework.response import Response
 
 from .serializer import LeagueSerializer,PlaysSerializer,TeamsSerializer,NewsSerializer
 
-def uploadView(request):                                      
-    if request.method == 'POST':
-        form = NewsSerializer(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return Response("OK")
-    else:
-            form = NewsSerializer()
-            
-    return Response("bad")
+
 
 
 def upload_news_admin(request):

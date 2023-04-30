@@ -3,6 +3,7 @@ from datetime import datetime
 from PIL import Image
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
+from django.core.validators import FileExtensionValidator
 
 def upload_to(instance,filename):
     return 'posts/{filename}'.format(filename=filename)
@@ -18,7 +19,7 @@ def get_current_time():
 class League(models.Model):
     id=models.AutoField(primary_key=True)
     name=models.CharField(max_length=25)
-    icon=models.ImageField(upload_to=upload_logo_to)
+    icon=models.FileField(upload_to=upload_logo_to,validators=[FileExtensionValidator(['img',"png","svg"])])
 
     def __str__(self):
         return self.name
@@ -26,7 +27,7 @@ class League(models.Model):
 
 class Teams(models.Model):
     id=models.AutoField(primary_key=True)
-    logo=models.ImageField(upload_to=upload_logo_to)
+    logo=models.FileField(upload_to=upload_logo_to,validators=[FileExtensionValidator(['img',"png","svg"])])
     name=models.CharField(max_length=20)
     score=models.IntegerField()
     goals_scored=models.IntegerField()
@@ -91,7 +92,7 @@ class Plays(models.Model):
 class News(models.Model):
     id=models.AutoField(primary_key=True)
     title=models.TextField()
-    image=models.ImageField(upload_to=upload_to)
+    image=models.FileField(upload_to=upload_to,validators=[FileExtensionValidator(['img',"png","svg"])])
     text=models.TextField()
     date=models.DateField(null=True)
     
@@ -110,6 +111,7 @@ class News(models.Model):
         print("here")
         # resize it
         if img.height > 300 or img.width > 300:
+            
             output_size = (300,300)
             img.thumbnail(output_size)
             img.save(self.image.path)

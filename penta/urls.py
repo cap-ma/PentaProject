@@ -4,13 +4,12 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static 
 
-from .views import uploadView,get_leagues,get_matches,sort_teams_by_score,get_news_by_id,get_news_all
+from .views import get_leagues,get_matches,sort_teams_by_score,get_news_by_id,get_news_all
 
 urlpatterns = [
 
    
    
-    #path("api/v1/upload_news_by_admin/",uploadView,name='upload_image'),
     path("api/v1/get_all_league",get_leagues,name="all_leagues"),
     path("api/v1/get_matches_by_league/<int:id>",get_matches,name="get_match_by_league"),
     path("api/v1/sort_teams/<int:id>",sort_teams_by_score,name="sort_teams"),
