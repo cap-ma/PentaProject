@@ -92,7 +92,7 @@ class Plays(models.Model):
 class News(models.Model):
     id=models.AutoField(primary_key=True)
     title=models.TextField()
-    image=models.FileField(upload_to=upload_to,validators=[FileExtensionValidator(['img',"png","svg"])])
+    image=models.FileField(upload_to=upload_to,validators=[FileExtensionValidator(['img',"png","svg","jpg"])])
     text=models.TextField()
     date=models.DateField(null=True)
     
