@@ -35,29 +35,22 @@ def get_leagues(request):
 
 @csrf_exempt
 @api_view(('GET',))
-def get_matches(request):
+def get_matches(request,id):
         
-        body_unicode = request.body.decode('utf-8')
-        body = json.loads(body_unicode)
-        
-        league_id=body["id"]
-
-        matches_by_id=Plays.objects.filter(leag=league_id)
+    
+        matches_by_id=Plays.objects.filter(leag=id)
         matches=PlaysSerializer(matches_by_id,many=True)
 
         return Response(matches.data)
 
 @csrf_exempt
 @api_view(('GET',))
-def sort_teams_by_score(request):
+def sort_teams_by_score(request,id):
         
-        body_unicode = request.body.decode('utf-8')
-        body = json.loads(body_unicode)
-        
-        league_id=body["id"]
+      
 
 
-        sorted_teams=Teams.objects.raw("SELECT * FROM penta_teams WHERE leag_id = %s ORDER BY score DESC , goals_scored-goals_lost DESC",[league_id])
+        sorted_teams=Teams.objects.raw("SELECT * FROM penta_teams WHERE leag_id = %s ORDER BY score DESC , goals_scored-goals_lost DESC",[id])
 
         context=TeamsSerializer(sorted_teams,many=True)
         
@@ -68,15 +61,10 @@ def sort_teams_by_score(request):
   
 @csrf_exempt
 @api_view(('GET',))
-def get_news_by_id(request):
+def get_news_by_id(request,id):
         
-        body_unicode = request.body.decode('utf-8')
 
-        body = json.loads(body_unicode)
-        
-        league_id=body["id"]
-        
-        news=News.objects.filter(id=league_id).first()
+        news=News.objects.filter(id=id).first()
         
         news_serializered=NewsSerializer(news)
         print(news_serializered)
