@@ -76,10 +76,7 @@ def get_news_by_id(request,id):
 @csrf_exempt
 @api_view(('GET',))
 def get_news_all(request):
-        
-      
-        
-        
+   
         news=News.objects.all()
         
         news_serializered=NewsSerializer(news,many=True)

@@ -22,6 +22,6 @@ class TeamsSerializer(serializers.ModelSerializer):
 class NewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = News
-        fields = '__all__'
+        fields = ('id','title','image','text','date')
 
         
