@@ -45,8 +45,10 @@ class Teams(models.Model):
 class Plays(models.Model):
     id=models.AutoField(primary_key=True)
     date=models.DateField(null=True)
+    icon1=models.FileField()
     name1=models.ForeignKey(Teams,on_delete=models.DO_NOTHING,related_name="name1")
     name2=models.ForeignKey(Teams,on_delete=models.DO_NOTHING,related_name="name2")
+    icon2=models.FileField()
     score1=models.IntegerField()
     score2=models.IntegerField()
 

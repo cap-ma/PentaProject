@@ -14,7 +14,6 @@ from .serializer import LeagueSerializer,PlaysSerializer,TeamsSerializer,NewsSer
 def upload_news_admin(request):
      return render(request,'index.html')
 
-
 @csrf_exempt
 @api_view(('GET',))
 def get_leagues(request):
@@ -27,13 +26,9 @@ def get_leagues(request):
 @csrf_exempt
 @api_view(('GET',))
 def get_matches(request,id):
-        
-    
-        matches_by_id=Plays.objects.filter(leag=id)
-       
-        matches=PlaysSerializer(matches_by_id,many=True)
-        
-       
+           
+        matches_by_id=Plays.objects.filter(leag=id)      
+        matches=PlaysSerializer(matches_by_id,many=True)      
         count=0
         
         for x in matches.data:
@@ -41,13 +36,19 @@ def get_matches(request,id):
               name1_id=x['name1']
               
               name1=Teams.objects.filter(id=name1_id).first()
-              
+              print(name1.name)
 
-              matches.data[count]['name1']=str(name1)
+
+              matches.data[count]['name1']=str(name1.name)
+              matches.data[count]['icon1']=name1.logo.url
+
               
               name2_id=x['name2']
               name2=Teams.objects.filter(id=name2_id).first()
-              matches.data[count]['name2']=str(name2)
+
+              matches.data[count]['name2']=str(name2.name)
+              matches.data[count]['icon2']=name2.logo.url
+
               count=count+1
 
 
