@@ -39,7 +39,26 @@ def get_matches(request,id):
         
     
         matches_by_id=Plays.objects.filter(leag=id)
+       
         matches=PlaysSerializer(matches_by_id,many=True)
+        
+       
+        count=0
+        
+        for x in matches.data:
+              
+              name1_id=x['name1']
+              
+              name1=Teams.objects.filter(id=name1_id).first()
+              
+
+              matches.data[count]['name1']=str(name1)
+              
+              name2_id=x['name2']
+              name2=Teams.objects.filter(id=name2_id).first()
+              matches.data[count]['name2']=str(name2)
+              count=count+1
+
 
         return Response(matches.data)
 
@@ -47,8 +66,6 @@ def get_matches(request,id):
 @api_view(('GET',))
 def sort_teams_by_score(request,id):
         
-      
-
 
         sorted_teams=Teams.objects.raw("SELECT * FROM penta_teams WHERE leag_id = %s ORDER BY score DESC , goals_scored-goals_lost DESC",[id])
 
