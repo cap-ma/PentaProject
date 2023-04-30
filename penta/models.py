@@ -18,6 +18,7 @@ def get_current_time():
 class League(models.Model):
     id=models.AutoField(primary_key=True)
     name=models.CharField(max_length=25)
+    icon=models.ImageField(upload_to=upload_logo_to)
 
     def __str__(self):
         return self.name
