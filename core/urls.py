@@ -22,3 +22,5 @@ urlpatterns = [
     path("",include('penta.urls')),
 ]
 
+admin.site.index_title="PentaGol" 
+admin.site.site_header="Salom, PentaGol Admini "
