@@ -6,6 +6,10 @@ from django.utils.translation import gettext_lazy as _
 
 def upload_to(instance,filename):
     return 'posts/{filename}'.format(filename=filename)
+
+def upload_logo_to(instance,filename):
+    return 'icons/{filename}'.format(filename=filename)
+
 def get_current_time():
     return datetime.now().strftime("%Y-%m-%d")
 
@@ -21,11 +25,16 @@ class League(models.Model):
 
 class Teams(models.Model):
     id=models.AutoField(primary_key=True)
+    logo=models.ImageField(upload_to=upload_logo_to)
     name=models.CharField(max_length=20)
     score=models.IntegerField()
     goals_scored=models.IntegerField()
     goals_lost=models.IntegerField()
     leag=models.ForeignKey(League,on_delete=models.DO_NOTHING)
+
+
+    def image_tag(self):
+       return mark_safe(f'<img src="{self.logo.url}" width="70" height="70" />' )
 
     def __str__(self):
         return self.name

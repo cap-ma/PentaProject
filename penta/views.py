@@ -43,7 +43,7 @@ def get_matches(request):
         league_id=body["id"]
 
         matches_by_id=Plays.objects.filter(leag=league_id)
-        matches=PlaysSerializer(matches_by_id)
+        matches=PlaysSerializer(matches_by_id,many=True)
 
         return Response(matches.data)
 
